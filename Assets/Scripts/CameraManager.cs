@@ -7,20 +7,19 @@ public class CameraManager : MonoBehaviour {
 
     private Transform player1;
     private Transform player2;
-    // Use this for initialization
+
     void Start()
     {
-        RageBattlePlayer[] players = GameObject.FindObjectsOfType<RageBattlePlayer>();
-        player1 = players[0].transform;
-        player2 = players[1].transform;
-
         m_camera = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (player1 == null || player2 == null) return;
+        if (player1 == null || player2 == null)
+        {
+            player1 = RageBattleGameManager.Instance.player1.transform;
+            player2 = RageBattleGameManager.Instance.player2.transform;
+        }
         transform.position = (player1.position + player2.position) / 2;
         float dis = Vector3.Distance(player1.position, player2.position);
         float size = dis;

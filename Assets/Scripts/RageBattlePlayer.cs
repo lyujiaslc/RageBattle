@@ -24,7 +24,10 @@ public class RageBattlePlayer : MonoBehaviour {
     //Player control stuff
     private void Update()
     {
-        UpdateColor(collectEnergyAmount);
+        if(collectEnergyAmount != 0)
+        {
+            UpdateColor(collectEnergyAmount);
+        }
         if(currentColor != targetColor)
         {
             GetComponent<Renderer>().material.color = targetColor;
@@ -33,6 +36,10 @@ public class RageBattlePlayer : MonoBehaviour {
             {
                 health += collectEnergyAmount / Mathf.Abs(collectEnergyAmount);
             }
+        }
+        else
+        {
+            collectEnergyAmount = 0;
         }
 
         // Player1 control
