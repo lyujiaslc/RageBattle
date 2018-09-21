@@ -6,16 +6,20 @@ public class RageBattleGameManager : MonoBehaviour {
 
     [SerializeField] private GameObject playerPrefab = null;
 
-    private RageBattlePlayer player1;
-    private RageBattlePlayer player2;
+    [HideInInspector]
+    public RageBattlePlayer player1;
+    [HideInInspector]
+    public RageBattlePlayer player2;
 
     public void InitializePlayers()
     {
         player1 = Instantiate(playerPrefab, GetSpawnpoint(), Quaternion.identity).GetComponent<RageBattlePlayer>();
         player1.playerIndex = 1;
+        player1.health = 50;
 
         player2 = Instantiate(playerPrefab, GetSpawnpoint(), Quaternion.identity).GetComponent<RageBattlePlayer>();
         player2.playerIndex = 2;
+        player2.health = 50;
     }
 
     public void OnGameStarted()
