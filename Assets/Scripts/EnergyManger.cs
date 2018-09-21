@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnergyManger : MonoBehaviour{
+public class EnergyManger : MonoBehaviour {
     public static EnergyManger Instance { get; private set; }
 
     private const float RANDOMRANGE = 12.0f;

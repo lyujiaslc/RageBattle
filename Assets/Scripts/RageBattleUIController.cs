@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class RageBattleUIController : MonoBehaviour {
 
-    [SerializeField] RageBattleGameManager rageBattleGameManager;
     [SerializeField] Slider player1RageMeter;
     [SerializeField] Slider player2RageMeter;
 
@@ -13,8 +12,10 @@ public class RageBattleUIController : MonoBehaviour {
 
     private void Update()
     {
-        player1RageMeter.value = rageBattleGameManager.player1.health;
-        player2RageMeter.value = rageBattleGameManager.player2.health;
-        //gradient.Evaluate(Time.deltaTime);
+        if(RageBattleGameManager.Instance.player1 != null)
+        {
+            player1RageMeter.value = RageBattleGameManager.Instance.player1.health;
+            player2RageMeter.value = RageBattleGameManager.Instance.player2.health;
+        }
     }
 }

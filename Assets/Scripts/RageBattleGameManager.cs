@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RageBattleGameManager : MonoBehaviour {
+public class RageBattleGameManager : MonoBehaviour
+{
+    public static RageBattleGameManager Instance { get; private set; }
 
     [SerializeField] private GameObject playerPrefab = null;
 
@@ -22,15 +24,20 @@ public class RageBattleGameManager : MonoBehaviour {
         player2.health = 50;
     }
 
-    public void OnGameStarted()
+    private void OnGameStarted()
     {
         InitializePlayers();
     }
 
-    public void OnGameFinished()
+    private void OnGameFinished()
     {
         Destroy(player1.gameObject);
         Destroy(player2.gameObject);
+    }
+
+    private void Awake()
+    {
+        Instance = this;
     }
 
     private void Start()
