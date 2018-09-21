@@ -12,7 +12,7 @@ public class EnergyManger : MonoBehaviour {
         ANGRY = 3
     }
 
-    public Energy EmergyPrefab;
+    [SerializeField] Energy EmergyPrefab;
 
     private Dictionary<GameObject, Energy> m_energies = new Dictionary<GameObject, Energy>();
     private Queue<Energy> m_collectedEnergies = new Queue<Energy>();
