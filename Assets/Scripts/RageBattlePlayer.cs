@@ -15,31 +15,35 @@ public class RageBattlePlayer : MonoBehaviour {
     private Color targetColor;
 
     private int collectEnergyAmount;
+    private float currentHealth;
 
     private void Start()
     {
+        currentHealth = health;
         UpdateColor(0);
     }
 
     //Player control stuff
     private void Update()
     {
-        if(collectEnergyAmount != 0)
+        if(collectEnergyAmount != 0) //if collected something
         {
             UpdateColor(collectEnergyAmount);
+            if(health < currentHealth + collectEnergyAmount)
+            {
+                health++;
+            }
         }
-        if(currentColor != targetColor)
+
+        if (currentColor != targetColor)
         {
             GetComponent<Renderer>().material.color = targetColor;
             currentColor = targetColor;
-            if(collectEnergyAmount != 0)
-            {
-                health += collectEnergyAmount / Mathf.Abs(collectEnergyAmount);
-            }
         }
         else
         {
             collectEnergyAmount = 0;
+            currentHealth = health;
         }
 
         // Player1 control
@@ -87,7 +91,8 @@ public class RageBattlePlayer : MonoBehaviour {
     //Update health and color
     private void OnTriggerEnter(Collider col)
     {
-        collectEnergyAmount += EnergyManger.Instance.CollectEnergyAmount(col);
+        collectEnergyAmount = EnergyManger.Instance.CollectEnergyAmount(col);
+
     }
 
     //Hit something: player or wall
@@ -99,7 +104,7 @@ public class RageBattlePlayer : MonoBehaviour {
     //Update player color based on the health change
     private void UpdateColor(float change)
     {
-        float redRatio = (health + change) / 100;
+        float redRatio = (currentHealth + change) / 100;
         float greenRatio = 1 - redRatio;
         targetColor = new Color(Mathf.Clamp01(redRatio), Mathf.Clamp01(greenRatio), 0f);
     }
