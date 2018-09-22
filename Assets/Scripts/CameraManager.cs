@@ -8,18 +8,16 @@ public class CameraManager : MonoBehaviour {
     private Transform player1;
     private Transform player2;
 
-    void Start()
-    {
-        m_camera = Camera.main;
-    }
-
     void Update()
     {
         if (player1 == null || player2 == null)
         {
             player1 = RageBattleGameManager.Instance.player1.transform;
             player2 = RageBattleGameManager.Instance.player2.transform;
+            m_camera = Camera.main;
         }
+        if (player1 == null || player2 == null) return;
+
         transform.position = (player1.position + player2.position) / 2;
         float dis = Vector3.Distance(player1.position, player2.position);
         float size = dis * 2;

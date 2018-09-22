@@ -25,6 +25,8 @@ public class EnergyManger : MonoBehaviour {
         Instance = this;
         GetEnergyPlaceCenters();
         PlaceEnergys();
+
+        StartCoroutine(AutoGenerateEnergy());
     }
 
     private void GetEnergyPlaceCenters()
@@ -42,17 +44,21 @@ public class EnergyManger : MonoBehaviour {
         foreach(var pos in m_energyPlaceCentersposes)
         {
             int amount = Random.Range(2, 5);
-            float maxX = pos.x + Random.Range(0.0f, RANDOMRANGE);
-            float minX = pos.x - Random.Range(0.0f, RANDOMRANGE);
-            float maxZ = pos.z + Random.Range(0.0f, RANDOMRANGE);
-            float minZ = pos.z - Random.Range(0.0f, RANDOMRANGE);
 
             for (int i = 0; i < amount; ++i)
             {
-                float x = Random.Range(maxX, minX);
-                PlaceEnergyAtPosition(new Vector3(Random.Range(maxX, minX), pos.y, Random.Range(maxZ, minZ)));
+                PlaceEnergyAroundPosition(pos);
             }
         }
+    }
+
+    private void PlaceEnergyAroundPosition(Vector3 pos)
+    {
+        float maxX = pos.x + Random.Range(0.0f, RANDOMRANGE);
+        float minX = pos.x - Random.Range(0.0f, RANDOMRANGE);
+        float maxZ = pos.z + Random.Range(0.0f, RANDOMRANGE);
+        float minZ = pos.z - Random.Range(0.0f, RANDOMRANGE);
+        PlaceEnergyAtPosition(new Vector3(Random.Range(maxX, minX), pos.y, Random.Range(maxZ, minZ)));
     }
 	
 
@@ -84,7 +90,15 @@ public class EnergyManger : MonoBehaviour {
     }
 
 
-
+    IEnumerator AutoGenerateEnergy()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds( 1 + (m_energies.Count / 10));
+            if(m_energies.Count <= 30)
+                PlaceEnergyAroundPosition(m_energyPlaceCentersposes[Random.Range(0, m_energyPlaceCentersposes.Count)]);
+        }
+    }
 
 }
 

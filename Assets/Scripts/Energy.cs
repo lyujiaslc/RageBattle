@@ -6,8 +6,8 @@ public class Energy : MonoBehaviour {
     private EnergyManger.EnergyType m_energyType;
     public EnergyManger.EnergyType EnergyType { get { return m_energyType; } }
 
-    public MeshRenderer renderer;
-    public Light light;
+    [SerializeField] MeshRenderer renderer;
+    [SerializeField] Light light1;
 
 
     public void Init(EnergyManger.EnergyType et)
@@ -23,7 +23,7 @@ public class Energy : MonoBehaviour {
     private void SetColor(Color c)
     {
         renderer.material.color = c;
-        light.color = c;
+        light1.color = c;
     }
 }
 
